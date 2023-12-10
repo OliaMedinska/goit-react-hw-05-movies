@@ -1,27 +1,29 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { Header, StyledNavlink, List } from './App.styled';
+import HomePage from 'pages/HomePage';
 
 export const App = () => {
   return (
     <div>
-      <header>
+      <Header>
         <nav>
-          <ul>
+          <List>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <StyledNavlink to="/">Home</StyledNavlink>
             </li>
             <li>
-              <NavLink to="/movies">Movies</NavLink>
+              <StyledNavlink to="/movies">Movies</StyledNavlink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to="/movies/:movieId">MovieDetails</NavLink>
-            </li>
-          </ul>
+            </li> */}
+          </List>
         </nav>
-      </header>
+      </Header>
       <Routes>
-        <Route path="/" element={<div>Home</div>} />
+        <Route path="/" element={HomePage()} />
         <Route path="/movies" element={<div>Movies</div>} />
-        <Route path="/movies/:movieId" element={<div>MovieDetails</div>} />
+        {/* <Route path="/movies/:movieId" element={<div>MovieDetails</div>} /> */}
       </Routes>
     </div>
   );

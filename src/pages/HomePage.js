@@ -35,6 +35,8 @@ useEffect(() => {
           </li>
         ))}
       </ul>
+      {isLoading}
+      {error}
      </>
     )
 };

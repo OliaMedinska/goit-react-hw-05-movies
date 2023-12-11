@@ -40,6 +40,8 @@ export default function Credits() {
           </li>
         ))}
       </ul>
+      {isLoading}
+      {error}
       <Outlet />
     </>
   );

@@ -36,6 +36,8 @@ export default function Reviews() {
           </li>
         ))}
       </ul>
+      {isLoading}
+      {error}
       <Outlet />
     </>
   );

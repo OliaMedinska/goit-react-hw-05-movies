@@ -67,6 +67,8 @@ export default function MoviesDetailsPage() {
           </ul>
         </nav>
       </div>
+      {isLoading}
+      {error}
       <Outlet />
     </>
   );

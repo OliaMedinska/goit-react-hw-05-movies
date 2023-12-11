@@ -24,7 +24,7 @@ export default function Credits() {
     }
 
     getCredits();
-  }, []);
+  }, [movieId]);
 
   return (
     <>

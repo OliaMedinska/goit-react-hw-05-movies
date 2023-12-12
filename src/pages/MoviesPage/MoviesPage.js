@@ -58,6 +58,7 @@ const onSubmitItems = e => {
             <ItemLink to={`/movies/${id}`}>{title || name}</ItemLink>
           </li>
         ))}
+        {isLoading}
       </ItemsList>
         </>
     )

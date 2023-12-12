@@ -8,10 +8,10 @@ language: 'en-US'
 };
 
 
-// export const searchMovies = async () => {
-//   const response = await axios.get(`/search/movie?include_adult=false&page=1`);
-//   return response.data.results;
-// };
+export const searchMovies = async (query) => {
+  const response = await axios.get(`/search/movie?query=${query}&include_adult=false&page=1`);
+  return response.data.results;
+};
   
 export const fetchPopularMovies = async () => {
     const response = await axios.get(`/trending/all/day`);

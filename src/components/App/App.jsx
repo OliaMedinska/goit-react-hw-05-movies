@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import { Header, StyledNavlink, List } from './App.styled';
-import HomePage from 'pages/HomePage';
-import MoviesPage from 'pages/MoviesPage';
-import MoviesDetailsPage from 'pages/MovieDetailsPage';
-import Credits from './Credits';
-import Reviews from './Reviews';
+import HomePage from 'pages/HomePage/HomePage';
+import MoviesPage from 'pages/MoviesPage/MoviesPage';
+import MoviesDetailsPage from 'pages/MovieDetailsPage/MovieDetailsPage';
+import Credits from '../Credits/Credits';
+import Reviews from '../Reviews';
 
 export const App = () => {
   return (

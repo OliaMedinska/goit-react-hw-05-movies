@@ -1,6 +1,6 @@
 import { fetchPopularMovies } from "api";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { PopularList, PopularLink } from "./HomePage.styled";
 
 export default function HomePage () {
 const [isLoading, setIsLoading] = useState(false);
@@ -28,13 +28,13 @@ useEffect(() => {
     return (
      <>
     {items.length > 0 && <h1>Trending today</h1>}
-    <ul>
+    <PopularList>
         {items.map(({title,name,id}) => (
           <li key={id}>
-            <Link to={`/movies/${id}`}>{title || name}</Link>
+            <PopularLink to={`/movies/${id}`}>{title || name}</PopularLink>
           </li>
         ))}
-      </ul>
+      </PopularList>
       {isLoading}
       {error}
      </>

@@ -1,6 +1,7 @@
 import { Outlet, useParams } from 'react-router-dom';
 import { getActorsData } from 'api';
 import { useEffect, useState } from 'react';
+import { List, Image } from './Credits.styled';
 
 export default function Credits() {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +15,6 @@ export default function Credits() {
         const actors = await getActorsData(movieId);
         setIsLoading(true);
         setItems(actors);
-        console.log(actors);
       } catch (error) {
         setError(true);
         console.log('Something wrong...');
@@ -28,10 +28,10 @@ export default function Credits() {
 
   return (
     <>
-      <ul>
+      <List>
         {data.map(({ name, id, character, profile_path }) => (
           <li key={id}>
-            <img
+            <Image
               src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${profile_path}`}
               alt={name}
             />
@@ -39,7 +39,7 @@ export default function Credits() {
             <p>Character: {character}</p>
           </li>
         ))}
-      </ul>
+      </List>
       {isLoading}
       {error}
       <Outlet />

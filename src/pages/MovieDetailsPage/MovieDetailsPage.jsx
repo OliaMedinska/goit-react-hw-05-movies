@@ -1,6 +1,16 @@
-import { NavLink, Outlet, useParams, Link } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { getMoviesDetails } from 'api';
 import { useEffect, useState } from 'react';
+import {
+  MoviePoster,
+  Container,
+  ContentContainer,
+  TextContent,
+  SecHeader,
+  NavList,
+  StyledNavlink,
+  Button,
+} from './MoviesDetailsPage.styled';
 
 export default function MoviesDetailsPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,19 +37,17 @@ export default function MoviesDetailsPage() {
 
   return (
     <>
-      <Link to="">
-        <svg></svg>Go back
-      </Link>
-      <div>
-        <img
+      <Button to="/">Go back</Button>
+      <Container>
+        <MoviePoster
           src={`https://www.themoviedb.org/t/p/w1280${data.poster_path}`}
           alt=""
         />
-        <div>
+        <ContentContainer>
           <h1>{data.title || data.name}</h1>
-          <p>User score: {data.popularity}%</p>
+          <p>User score: {Number.parseInt(data.popularity)}</p>
           <h2>Overview</h2>
-          <p>{data.overview}</p>
+          <TextContent>{data.overview}</TextContent>
           {data?.genres?.length > 0 && (
             <>
               <h2>Genres</h2>
@@ -52,19 +60,19 @@ export default function MoviesDetailsPage() {
               </ul>
             </>
           )}
-        </div>
-      </div>
+        </ContentContainer>
+      </Container>
       <div>
-        <h2>Additional information</h2>
+        <SecHeader>Additional information</SecHeader>
         <nav>
-          <ul>
+          <NavList>
             <li>
-              <NavLink to="cast">Cast</NavLink>
+              <StyledNavlink to="cast">Cast</StyledNavlink>
             </li>
             <li>
-              <NavLink to="reviews">Reviews</NavLink>
+              <StyledNavlink to="reviews">Reviews</StyledNavlink>
             </li>
-          </ul>
+          </NavList>
         </nav>
       </div>
       {isLoading}

@@ -14,7 +14,6 @@ export default function Reviews() {
         const reviews = await getReviewsData(movieId);
         setIsLoading(true);
         setItems(reviews);
-        console.log(reviews);
       } catch (error) {
         setError(true);
         console.log('Something wrong...');

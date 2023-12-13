@@ -1,15 +1,20 @@
 import {searchMovies} from 'api';
 import { useState, useEffect } from 'react';
-import { Form, Button, Input, ItemLink, ItemsList } from './MoviesPage.styled';
+import { Form, Button, Input} from './MoviesPage.styled';
+import { Loader } from 'components/Loader/Loader';
+import { MoviesList } from 'components/MoviesList/MoviesList';
+import { useSearchParams } from 'react-router-dom';
 
 export default function MoviesPage () {
     const [movieItems, setMovieItems] = useState([]);
-    const [movieName, setMovieName] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const movieName = searchParams.get("name");
 
 useEffect(() => {
     async function getMovies() {
-        if (movieName === '') {
+        if (!movieName) {
         return;
         }
 
@@ -18,7 +23,7 @@ useEffect(() => {
         setIsLoading(true);
         setMovieItems(prevItems => [...prevItems, ...searchedMovies]);
         } catch (error) {
-        console.log('Something wrong...');
+        setError(true);
         } finally {
         setIsLoading(false);
         }
@@ -32,7 +37,7 @@ const onSubmitItems = e => {
     e.preventDefault();
 
     setMovieItems([]);
-    setMovieName(e.target.search.value.trim());
+    setSearchParams({name: e.target.search.value.trim()});
 };
 
     return (
@@ -51,15 +56,9 @@ const onSubmitItems = e => {
                 search
             </Button>
         </Form>
-
-        <ItemsList>
-        {movieItems.map(({title,name,id}) => (
-          <li key={id}>
-            <ItemLink to={`/movies/${id}`}>{title || name}</ItemLink>
-          </li>
-        ))}
-        {isLoading}
-      </ItemsList>
+      {movieItems.length > 0 && <MoviesList items = {movieItems}/>}
+      {isLoading && <Loader></Loader>}
+      {error && <p>Something wrong...</p>}
         </>
     )
 };

@@ -1,6 +1,7 @@
 import { fetchPopularMovies } from "api";
 import { useState, useEffect } from "react";
-import { PopularList, PopularLink } from "./HomePage.styled";
+import { Loader } from "components/Loader/Loader";
+import { MoviesList } from "components/MoviesList/MoviesList";
 
 export default function HomePage () {
 const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +16,6 @@ useEffect(() => {
       setItems(movies.results);
     } catch (error) {
       setError(true);
-      console.log('Something wrong...');
     } finally {
       setIsLoading(false);
     }
@@ -28,15 +28,9 @@ useEffect(() => {
     return (
      <>
     {items.length > 0 && <h1>Trending today</h1>}
-    <PopularList>
-        {items.map(({title,name,id}) => (
-          <li key={id}>
-            <PopularLink to={`/movies/${id}`}>{title || name}</PopularLink>
-          </li>
-        ))}
-      </PopularList>
-      {isLoading}
-      {error}
+    {items.length > 0 && <MoviesList items = {items}/>}
+      {isLoading && <Loader></Loader>}
+      {error && <p>Something wrong...</p>}
      </>
     )
 };

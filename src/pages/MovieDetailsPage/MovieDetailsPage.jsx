@@ -1,6 +1,7 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { getMoviesDetails } from 'api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { Loader } from 'components/Loader/Loader';
 import {
   MoviePoster,
   Container,
@@ -17,6 +18,7 @@ export default function MoviesDetailsPage() {
   const [error, setError] = useState(false);
   const [data, setItems] = useState([]);
   const { movieId } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     async function updatedMovies() {
@@ -35,13 +37,22 @@ export default function MoviesDetailsPage() {
     updatedMovies();
   }, [movieId]);
 
+  const defaultImg =
+    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+  const backLink = useRef(location.state?.from ?? '/');
+
   return (
     <>
-      <Button to="/">Go back</Button>
+      <Button to={backLink.current}>Go back</Button>
       <Container>
         <MoviePoster
-          src={`https://www.themoviedb.org/t/p/w1280${data.poster_path}`}
-          alt=""
+          src={
+            data.poster_path
+              ? `https://www.themoviedb.org/t/p/w1280${data.poster_path}`
+              : defaultImg
+          }
+          alt="poster"
+          width={350}
         />
         <ContentContainer>
           <h1>{data.title || data.name}</h1>
@@ -75,8 +86,8 @@ export default function MoviesDetailsPage() {
           </NavList>
         </nav>
       </div>
-      {isLoading}
-      {error}
+      {isLoading && <Loader></Loader>}
+      {error && <p>Something wrong...</p>}
       <Outlet />
     </>
   );

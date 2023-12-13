@@ -1,6 +1,7 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getReviewsData } from 'api';
 import { useEffect, useState } from 'react';
+import { Loader } from './Loader/Loader';
 
 export default function Reviews() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,9 +36,8 @@ export default function Reviews() {
           </li>
         ))}
       </ul>
-      {isLoading}
-      {error}
-      <Outlet />
+      {isLoading && <Loader></Loader>}
+      {error && <p>Something wrong...</p>}
     </>
   );
 }
